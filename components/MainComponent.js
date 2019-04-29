@@ -1,24 +1,101 @@
 import React, { Component } from 'react';
 import Menu from './MenuComponent';
+import BarRest from './BarRestComponent';
+import LoginRegister from './LoginRegisterComponent';
+import About from './AboutComponent'; 
 import { DISHES } from '../shared/dishes';
 import Dishdetail from './DishDetailComponent';
 import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { createStackNavigator, createAppContainer, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import Home from './HomeComponent';
 import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { fetchDishes, fetchComments, fetchPromos, fetchLeaders, fetchDeals, fetchRests } from '../redux/ActionCreators';
+
+const mapStateToProps = state => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders,
+    deals: state.deals,
+    rests: state.rests
+  }
+}
+const mapDispatchToProps = dispatch => ({
+  fetchDishes: () => dispatch(fetchDishes()),
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos()),
+  fetchLeaders: () => dispatch(fetchLeaders()),
+  fetchDeals: () => dispatch(fetchDeals()),
+  fetchRests: () => dispatch(fetchRests())
+})
 
 const HomeNavigator = createStackNavigator({
     Home: { screen: Home }
   }, {
     defaultNavigationOptions: ({ navigation }) => ({
       headerStyle: {
-          backgroundColor: "green"
+          backgroundColor: "green",
+          marginLeft: 10
       },
       headerTitleStyle: {
-          color: "#fff"            
+          color: "#fff",
+          marginLeft: 0            
       },
       headerTintColor: "#fff",
-      headerLeft: <Icon name='menu' size={24} color='white' onPress={() => navigation.toggleDrawer()}/>
+      headerLeft: <Icon name='menu' size={28} color='white' onPress={() => navigation.toggleDrawer()}/>
+    })
+});
+
+const AboutNavigator = createStackNavigator({
+    About: { screen: About }
+  }, {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerStyle: {
+          backgroundColor: "green",
+          marginLeft: 10
+      },
+      headerTitleStyle: {
+          color: "#fff",
+          marginLeft: 0           
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name='menu' size={28} color='white' onPress={() => navigation.toggleDrawer()}/>
+    })
+});
+
+const LoginRegisterNavigator = createStackNavigator({
+    LoginRegister: { screen: LoginRegister }
+  }, {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerStyle: {
+          backgroundColor: "green",
+          marginLeft: 10
+      },
+      headerTitleStyle: {
+          color: "#fff",
+          marginLeft: 0            
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name='menu' size={28} color='white' onPress={() => navigation.toggleDrawer()}/>
+    })
+});
+
+const BarRestNavigator = createStackNavigator({
+    BarRest: { screen: BarRest }
+  }, {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerStyle: {
+          backgroundColor: "green",
+          marginLeft: 10
+      },
+      headerTitleStyle: {
+          color: "#fff",
+          marginLeft: 0            
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name='menu' size={28} color='white' onPress={() => navigation.toggleDrawer()}/>
     })
 });
 
@@ -32,10 +109,11 @@ const MenuNavigator = createStackNavigator({
         headerTintColor: '#fff',
         headerStyle: { backgroundColor: 'green' },
         headerTitleStyle: { color: '#fff'},
-        headerLeft: <Icon name='menu' size={24} color='white' onPress={() => navigation.toggleDrawer()}/>
+        headerLeft: <Icon name='menu' size={28} color='white' onPress={() => navigation.toggleDrawer()}/>
     })
 }
 );
+
 
 const CustomDrawerContentComponent = (props) => (
     <ScrollView>
@@ -60,6 +138,55 @@ const MainNavigator = createDrawerNavigator({
           )
         }
       },
+      Bars_Restaurants: 
+      { screen: BarRestNavigator,
+        defaultNavigationOptions: {
+          title: 'BarRest',
+          drawerLabel: 'BarRest',
+          drawerIcon: ({ tintColor, focused }) => (
+            <Icon
+              name='list'
+              type='font-awesome'            
+              size={24}
+              color={tintColor}
+            />
+          ),
+          
+        }, 
+      },
+      About: 
+      { screen: AboutNavigator,
+        defaultNavigationOptions: {
+          title: 'About',
+          drawerLabel: 'About',
+          drawerIcon: ({ tintColor, focused }) => (
+            <Icon
+              name='list'
+              type='font-awesome'            
+              size={24}
+              color={tintColor}
+            />
+          ),
+          
+        }, 
+      },
+      Login_or_Register: 
+      { screen: LoginRegisterNavigator,
+        defaultNavigationOptions: {
+          title: 'Login or Register',
+          drawerLabel: 'Login or Register',
+          drawerIcon: ({ tintColor, focused }) => (
+            <Icon
+              name='list'
+              type='font-awesome'            
+              size={24}
+              color={tintColor}
+            />
+          ),
+          
+        }, 
+      },
+
     Menu: 
       { screen: MenuNavigator,
         defaultNavigationOptions: {
@@ -87,10 +214,18 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dishes: DISHES,
-            selectedDish: null
+            dishes: DISHES
         }
     }
+    componentDidMount() {
+      this.props.fetchDishes();
+      this.props.fetchComments();
+      this.props.fetchPromos();
+      this.props.fetchLeaders();
+      this.props.fetchDeals();
+      this.props.fetchRests();
+    }
+    
 
     onDishSelect(dishId) {
         this.setState({selectedDish: dishId});
@@ -132,4 +267,4 @@ const styles = StyleSheet.create({
       height: 60
     }
   });
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

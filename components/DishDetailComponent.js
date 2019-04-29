@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
-import { DISHES } from '../shared/dishes';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
 
+const mapStateToProps = state => {
+    return {
+        dishes: state.dishes
+    }
+}
 function RenderDish(props) {
     const dish = props.dish;
 
@@ -10,7 +16,7 @@ function RenderDish(props) {
         return(
             <Card
                 featuredTitle={dish.name}
-                image={require('./images/uthappizza.png')}>
+                image={{ uri: baseUrl + dish.image}}>
                     <Text style={{margin: 10}}>
                         {dish.description}
                     </Text>
@@ -25,18 +31,15 @@ function RenderDish(props) {
 class DishDetail extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            dishes: DISHES
-        };
     }
     static navigationOptions = {
         title: 'Dish Details'
     };
     render() {
         const dishId = this.props.navigation.getParam('dishId', '');
-        return(<RenderDish dish={this.state.dishes[+dishId]} />);
+        return(<RenderDish dish={this.props.dishes.dishes[+dishId]} />);
     }
     
 }
 
-export default DishDetail;
+export default connect(mapStateToProps)(DishDetail);
