@@ -7,6 +7,8 @@ import { promotions } from './promotions';
 import { leaders } from './leaders';
 import { deals } from './deals';
 import { rests } from './rests';
+import { barinfo } from './barinfo';
+import { search } from './search';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -16,7 +18,9 @@ export const ConfigureStore = () => {
             promotions,
             leaders,
             deals,
-            rests
+            rests,
+            barinfo,
+            search
         }),
         applyMiddleware(thunk, logger)
     );

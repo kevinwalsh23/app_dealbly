@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import Menu from './MenuComponent';
 import BarRest from './BarRestComponent';
 import LoginRegister from './LoginRegisterComponent';
 import About from './AboutComponent'; 
 import { DISHES } from '../shared/dishes';
 import Dishdetail from './DishDetailComponent';
+import BarDetail from './BarDetailComponent';
 import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { createStackNavigator, createAppContainer, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import Home from './HomeComponent';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders, fetchDeals, fetchRests } from '../redux/ActionCreators';
+import { Loading } from './LoadingComponent';
 
 const mapStateToProps = state => {
   return {
@@ -32,11 +33,12 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const HomeNavigator = createStackNavigator({
-    Home: { screen: Home }
+    Home: { screen: Home },
+    BarDetail: { screen: BarDetail }
   }, {
     defaultNavigationOptions: ({ navigation }) => ({
       headerStyle: {
-          backgroundColor: "green",
+          backgroundColor: "#2e944b",
           marginLeft: 10
       },
       headerTitleStyle: {
@@ -46,14 +48,14 @@ const HomeNavigator = createStackNavigator({
       headerTintColor: "#fff",
       headerLeft: <Icon name='menu' size={28} color='white' onPress={() => navigation.toggleDrawer()}/>
     })
-});
+});   
 
 const AboutNavigator = createStackNavigator({
     About: { screen: About }
   }, {
     defaultNavigationOptions: ({ navigation }) => ({
       headerStyle: {
-          backgroundColor: "green",
+          backgroundColor: "#2e944b",
           marginLeft: 10
       },
       headerTitleStyle: {
@@ -70,7 +72,7 @@ const LoginRegisterNavigator = createStackNavigator({
   }, {
     defaultNavigationOptions: ({ navigation }) => ({
       headerStyle: {
-          backgroundColor: "green",
+          backgroundColor: "#2e944b",
           marginLeft: 10
       },
       headerTitleStyle: {
@@ -83,11 +85,12 @@ const LoginRegisterNavigator = createStackNavigator({
 });
 
 const BarRestNavigator = createStackNavigator({
-    BarRest: { screen: BarRest }
+    BarRest: { screen: BarRest },
+    BarDetail: { screen: BarDetail }
   }, {
     defaultNavigationOptions: ({ navigation }) => ({
       headerStyle: {
-          backgroundColor: "green",
+          backgroundColor: "#2e944b",
           marginLeft: 10
       },
       headerTitleStyle: {
@@ -98,22 +101,6 @@ const BarRestNavigator = createStackNavigator({
       headerLeft: <Icon name='menu' size={28} color='white' onPress={() => navigation.toggleDrawer()}/>
     })
 });
-
-const MenuNavigator = createStackNavigator({
-    Menu: { screen: Menu },
-    Dishdetail: { screen: Dishdetail }
-},
-{
-    initialRouteName: 'Menu',
-    defaultNavigationOptions: ({ navigation }) => ({
-        headerTintColor: '#fff',
-        headerStyle: { backgroundColor: 'green' },
-        headerTitleStyle: { color: '#fff'},
-        headerLeft: <Icon name='menu' size={28} color='white' onPress={() => navigation.toggleDrawer()}/>
-    })
-}
-);
-
 
 const CustomDrawerContentComponent = (props) => (
     <ScrollView>
@@ -138,7 +125,7 @@ const MainNavigator = createDrawerNavigator({
           )
         }
       },
-      Bars_Restaurants: 
+      'Bars & Restaurants': 
       { screen: BarRestNavigator,
         defaultNavigationOptions: {
           title: 'BarRest',
@@ -170,28 +157,11 @@ const MainNavigator = createDrawerNavigator({
           
         }, 
       },
-      Login_or_Register: 
+      'Login/Register': 
       { screen: LoginRegisterNavigator,
         defaultNavigationOptions: {
           title: 'Login or Register',
           drawerLabel: 'Login or Register',
-          drawerIcon: ({ tintColor, focused }) => (
-            <Icon
-              name='list'
-              type='font-awesome'            
-              size={24}
-              color={tintColor}
-            />
-          ),
-          
-        }, 
-      },
-
-    Menu: 
-      { screen: MenuNavigator,
-        defaultNavigationOptions: {
-          title: 'Menu',
-          drawerLabel: 'Menu',
           drawerIcon: ({ tintColor, focused }) => (
             <Icon
               name='list'
@@ -232,12 +202,19 @@ class Main extends Component {
     }
 
     render() {
+      if (this.props.deals.isLoading) {
+        return(
+            <Loading />
+        );
+      }
+      else {
         return (
             <View style={{flex:1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
                 <App />
             </View>
         );
-    }
+      }
+  }
 }
 
 const styles = StyleSheet.create({
@@ -245,7 +222,7 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     drawerHeader: {
-      backgroundColor: 'green',
+      backgroundColor: '#2e944b',
       height: 140,
       alignItems: 'center',
       justifyContent: 'center',

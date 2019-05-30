@@ -105,8 +105,8 @@ class RegisterTab extends Component {
         this.state = {
             username: '',
             password: '',
-            firstname: '',
-            lastname: '',
+            confirmpass: '',
+            zipcode: '',
             email: '',
             remember: false,
             imageUrl: './images/uthappizza.png'
@@ -195,39 +195,23 @@ class RegisterTab extends Component {
                     containerStyle={styles.formInput}
                     />
                 <Input
-                    placeholder="First Name"                    
-                    onChangeText={(lastname) => this.setState({firstname})}
-                    value={this.state.firstname}
+                    placeholder="Confirm Passsword"                    
+                    onChangeText={(confirmpass) => this.setState({confirmpass})}
+                    value={this.state.confirmpass}
                     containerStyle={styles.formInput}
                     />
                 <Input
-                    placeholder="Last Name"                    
-                    onChangeText={(lastname) => this.setState({lastname})}
-                    value={this.state.lastname}
+                    placeholder="NYC Zipcode"                    
+                    onChangeText={(zipcode) => this.setState({zipcode})}
+                    value={this.state.zipcode}
                     containerStyle={styles.formInput}
                     />
                 <Input
-                    placeholder="Email"                
+                    placeholder="Email Address"                
                     onChangeText={(email) => this.setState({email})}
                     value={this.state.email}
                     containerStyle={styles.formInput}
-                    />
-                <View style={{marginTop: 5, marginLeft: 20}}>
-                    <Text>Add Profile Picture</Text>    
-                </View>    
-                <View style={styles.imageContainer}>                    
-                    <Button
-                        title="Camera"
-                        onPress={this.getImageFromCamera}
-                        style={{marginLeft:5}}
-                        />
-                    <Button
-                        title="Gallery"
-                        onPress={this.getImageFromCameraRoll}
-                        style={{marginLeft:5, backgroundColor: 'gray'}}
-                                                
-                        />                    
-                </View>                
+                    />                
                 <CheckBox title="Remember Me"
                     center
                     checked={this.state.remember}

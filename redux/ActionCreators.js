@@ -272,3 +272,83 @@ export const addRests = (rests) => ({
     type: ActionTypes.ADD_RESTS,
     payload: rests
 });
+
+export const fetchBarInfo = (barname) => (dispatch) => {
+    
+
+    dispatch(barinfoLoading());
+    //console.warn(barname);
+
+    return fetch(dealbly_api + 'bar/' + barname)
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+        },
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+    .then(response => response.json())
+    .then(barinfo => dispatch(addBarinfo(barinfo)))
+    .catch(error => dispatch(barinfoFailed(error.message)));
+};
+
+
+export const barinfoLoading = () => ({
+    type: ActionTypes.BARINFO_LOADING
+});
+
+export const barinfoFailed = (errmess) => ({
+    type: ActionTypes.BARINFO_FAILED,
+    payload: errmess
+});
+
+export const addBarinfo = (barinfo) => ({
+    type: ActionTypes.ADD_BARINFO,
+    payload: barinfo
+});
+
+export const fetchSearch = (search) => (dispatch) => {
+    
+
+    dispatch(searchLoading());
+    //console.warn(dealbly_api + 'search?' + 'start_time=' + search.start_time + '&end_time=' + search.end_time + '&day=' + search.day + '&keyword=' + search.keyword + '&zipnasty=' + search.zipnasty);    
+    return fetch(dealbly_api + 'search?' + 'start_time=' + search.start_time + '&end_time=' + search.end_time + '&day=' + search.day + '&keyword=' + search.keyword + '&zipnasty=' + search.zipnasty)
+    .then(response => {
+        if (response.ok) {
+            console.warn(response)
+            return response;
+        } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+        },
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+    .then(response => response.json())
+    .then(search => dispatch(addSearch(search)))
+    .catch(error => dispatch(searchFailed(error.message)));
+};
+
+
+export const searchLoading = () => ({
+    type: ActionTypes.SEARCH_LOADING
+});
+
+export const searchFailed = (errmess) => ({
+    type: ActionTypes.SEARCH_FAILED,
+    payload: errmess
+});
+
+export const addSearch = (search) => ({
+    type: ActionTypes.ADD_SEARCH,
+    payload: search
+});

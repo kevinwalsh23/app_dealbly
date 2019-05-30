@@ -7,7 +7,7 @@ import * as Animatable from 'react-native-animatable';
 class About extends Component {
 
     static navigationOptions = {
-        title: 'About'
+        title: 'Dealbly'
     };
 
     render() {        
