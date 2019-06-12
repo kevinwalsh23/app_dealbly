@@ -4,7 +4,6 @@ import { Divider, Image, Icon, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchSearch} from '../redux/ActionCreators';
 
-
 const mapStateToProps = state => {
     return {
         deals: state.deals,
