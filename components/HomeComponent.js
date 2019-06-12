@@ -16,7 +16,6 @@ const mapDispatchToProps = dispatch => ({
     fetchSearch: (search) => dispatch(fetchSearch(search))
   })
 
-
 function RenderRating(props) {
     const barinfo = props.barinfo;
 
