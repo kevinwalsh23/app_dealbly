@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, Button } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { baseUrl } from '../shared/baseUrl';
 import { fetchBarInfo} from '../redux/ActionCreators';
-import { Loading } from './LoadingComponent';
 import { ScrollView } from 'react-native-gesture-handler';
+
 
 const mapStateToProps = state => {
     return {
@@ -21,16 +20,22 @@ const mapDispatchToProps = dispatch => ({
 
 function RenderBar(props) {
     const barinfo = props.barinfo;
-    //console.warn(barinfo)
 
-    if (barinfo != null) {
+    if (barinfo != null) {        
+        if (!barinfo.barry) {
+            return(
+                <View></View>
+            );
+        }
+        else {
         return(
             <ScrollView style={{
                 flex: 1,
                 flexDirection: 'column',
                 contentContainerStyle:{alignItems: 'stretch'}
               }}>
-                <View style={{height: 200}}>
+
+                <View style={{height: 200}}>                
                 <Card
                     featuredTitle={barinfo.barry[0].bar_name}
                     image={{ uri: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80' }}>
@@ -62,18 +67,20 @@ function RenderBar(props) {
                     <RenderDeal day={barinfo.friday}/>
                     <RenderDeal day={barinfo.saturday}/>                    
                 </View>
+                
                 <Divider style={{marginTop: 5}}/>
               </ScrollView>
 
         );
+    }
+    
     }
     else{
         return(<View></View>);
     }
 }
 function RenderRating(props) {
-    const barinfo = props.barinfo;
-    //console.warn(props);
+    const barinfo = props.barinfo;    
 
     if (props.rating >= 9) {
         return(
@@ -105,9 +112,7 @@ function RenderRating(props) {
 }
 function RenderDeal(props) {
     const daydeal = props.day;
-    //console.warn(daydeal);
     const arrayLength = daydeal.length;
-    //console.warn(arrayLength);
     if (arrayLength >= 1){
             return(
                 <View>
@@ -131,9 +136,7 @@ function RenderDeal(props) {
 }
 function RenderCurrentDeal(props) {
     const daydeal = props.day;
-    //console.warn(daydeal);
-    const arrayLength = daydeal.length;
-    //console.warn(arrayLength);
+    const arrayLength = daydeal.length;    
     if (arrayLength >= 1){
             return(
                 <View>                    
@@ -176,18 +179,21 @@ class BarDetail extends Component {
     static navigationOptions = {
         title: 'Bar Details'
     };
+    
     componentDidMount() {
-        const restId1 = this.props.navigation.getParam('restId', '');
+        var restId1 = this.props.navigation.getParam('restId', '');
         this.props.fetchBarInfo(restId1);
-        //console.warn(this.props.fetchBarInfo('Bourbon%20Street%20Bar%20%26%20Grille'))
-        //console.warn(this.props.barinfo.barinfo)
       }
-    render() {
+    render() {        
         if (this.props.barinfo.isLoading) {
             return <View></View>
         }
         else {
-        return(<RenderBar barinfo={this.props.barinfo.barinfo} />);
+            return(
+                
+                <RenderBar barinfo={this.props.barinfo.barinfo} navigate={this.props.navigation} />
+                
+                );
         }
     }
 

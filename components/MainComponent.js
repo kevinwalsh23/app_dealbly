@@ -2,39 +2,31 @@ import React, { Component } from 'react';
 import BarRest from './BarRestComponent';
 import LoginRegister from './LoginRegisterComponent';
 import About from './AboutComponent'; 
-import { DISHES } from '../shared/dishes';
-import Dishdetail from './DishDetailComponent';
 import BarDetail from './BarDetailComponent';
+import SearchComponent from './SearchComponent';
 import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { createStackNavigator, createAppContainer, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import Home from './HomeComponent';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { fetchDishes, fetchComments, fetchPromos, fetchLeaders, fetchDeals, fetchRests } from '../redux/ActionCreators';
+import { fetchDeals, fetchRests } from '../redux/ActionCreators';
 import { Loading } from './LoadingComponent';
 
 const mapStateToProps = state => {
-  return {
-    dishes: state.dishes,
-    comments: state.comments,
-    promotions: state.promotions,
-    leaders: state.leaders,
+  return {    
     deals: state.deals,
     rests: state.rests
   }
 }
 const mapDispatchToProps = dispatch => ({
-  fetchDishes: () => dispatch(fetchDishes()),
-  fetchComments: () => dispatch(fetchComments()),
-  fetchPromos: () => dispatch(fetchPromos()),
-  fetchLeaders: () => dispatch(fetchLeaders()),
   fetchDeals: () => dispatch(fetchDeals()),
   fetchRests: () => dispatch(fetchRests())
 })
 
 const HomeNavigator = createStackNavigator({
     Home: { screen: Home },
-    BarDetail: { screen: BarDetail }
+    BarDetail: { screen: BarDetail },
+    SearchComponent: { screen: SearchComponent }
   }, {
     defaultNavigationOptions: ({ navigation }) => ({
       headerStyle: {
@@ -156,22 +148,6 @@ const MainNavigator = createDrawerNavigator({
           ),
           
         }, 
-      },
-      'Login/Register': 
-      { screen: LoginRegisterNavigator,
-        defaultNavigationOptions: {
-          title: 'Login or Register',
-          drawerLabel: 'Login or Register',
-          drawerIcon: ({ tintColor, focused }) => (
-            <Icon
-              name='list'
-              type='font-awesome'            
-              size={24}
-              color={tintColor}
-            />
-          ),
-          
-        }, 
       }
 }, {
   drawerBackgroundColor: '#F5F5F5',
@@ -183,23 +159,13 @@ const App = createAppContainer(MainNavigator);
 class Main extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            dishes: DISHES
+        this.state = {            
         }
     }
-    componentDidMount() {
-      this.props.fetchDishes();
-      this.props.fetchComments();
-      this.props.fetchPromos();
-      this.props.fetchLeaders();
+    componentDidMount() {      
       this.props.fetchDeals();
       this.props.fetchRests();
-    }
-    
-
-    onDishSelect(dishId) {
-        this.setState({selectedDish: dishId});
-    }
+    }    
 
     render() {
       if (this.props.deals.isLoading) {
@@ -241,7 +207,7 @@ const styles = StyleSheet.create({
     drawerImage: {
       margin: 10,
       width: 80,
-      height: 60
+      height: 61
     }
   });
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

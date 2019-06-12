@@ -41,7 +41,8 @@ class LoginTab extends Component {
     };
 
     handleLogin() {
-        console.log(JSON.stringify(this.state));
+        //console.log(JSON.stringify(this.state));
+
         if (this.state.remember)
             SecureStore.setItemAsync('userinfo', JSON.stringify({username: this.state.username, password: this.state.password}))
                 .catch((error) => console.log('Could not save user info', error));
@@ -74,7 +75,7 @@ class LoginTab extends Component {
                     />
                 <View style={styles.formButton}>
                     <Button
-                        onPress={() => this.handleLogin()}
+                        onPress={() => this.props.navigation.navigate('Home')}
                         title="Log In"                        
                         buttonStyle={{
                             backgroundColor: "navy"
@@ -220,7 +221,7 @@ class RegisterTab extends Component {
                     />
                 <View style={styles.formButton}>
                     <Button
-                        onPress={() => this.handleRegister()}
+                        onPress={() => this.props.navigation.navigate('Home')}
                         title="Sign Up"
                         buttonStyle={{
                             backgroundColor: "navy"

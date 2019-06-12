@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Card, ListItem } from 'react-native-elements';
+import { Card } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 
 class About extends Component {
