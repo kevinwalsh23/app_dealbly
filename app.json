@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app_dealbly",
-    "slug": "app_dealbly",
+    "name": "dealbly",
+    "slug": "dealbly",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -10,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "/assets/logo_dealbly.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.dealbly.dealbly"
+    },
+    "android": {
+      "package": "com.dealbly.dealbly"
     }
   }
 }
