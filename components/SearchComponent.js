@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity  } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, ScrollView  } from 'react-native';
 import { Divider, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchSearch} from '../redux/ActionCreators';
-
+import Icons from 'react-native-vector-icons/MaterialIcons';
 
 const mapStateToProps = state => {
     return {
@@ -58,6 +58,7 @@ function RenderImage(numnum) {
 class SearchComponent extends Component {
     constructor(props) {
         super(props);
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         this.state = {
             params: this.props.navigation.state.params.search,
             search: this.props.search
@@ -67,6 +68,11 @@ class SearchComponent extends Component {
     static navigationOptions = {
         title: 'Search Results'
     };
+    handleBackButtonClick() {
+        this.props.navigation.goBack(null);
+        return true;
+    }
+
     componentWillMount(){
         this.props.fetchSearch(this.props.navigation.state.params.search)
         .then(() => this.setState({search: this.props.search}));
@@ -120,10 +126,18 @@ class SearchComponent extends Component {
             if (x.props.search.zipresults) {
                 if (x.props.search.zipresults != null) {
                     return(
-                        <View>
-                        <View>
-                            <Text style={{fontSize: 12, marginLeft: 5, marginTop: 3, fontWeight: 'bold', textAlign: 'left'}}>Search Results for keyword '{x.props.search.query.keyword}' in zip/hood '{x.props.search.query.zipnasty}' </Text>                
-                        </View>
+                        <ScrollView>
+                        <View style={{margin: 0, flex: 1, flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                            <View style={{flex: 1, alignItems: 'left', marginTop: 0}}>
+                                <TouchableOpacity onPress={props.backbutton}>
+                                    <Icons name={'arrow-back'} size={30} color='#2e944b' style={{marginLeft: 15, marginTop: 5, marginBottom:0, height: 25}}/>
+                                </TouchableOpacity> 
+                            </View>
+                            <View style={{flex: 5, marginRight: 0, alignItems: 'baseline'}}>
+                                <Text style={{fontSize: 12, marginLeft: 5, marginTop: 13, fontWeight: 'bold', textAlign: 'left'}}>Search Results for keyword '{x.props.search.query.keyword}' in zip/hood '{x.props.search.query.zipnasty}' </Text>                
+                            </View>
+                        </View>                        
+                     
                         <View>
                             <FlatList
                                 data={x.props.search.zipresults}
@@ -132,7 +146,7 @@ class SearchComponent extends Component {
                                             
                             />
                         </View>
-                        </View>            
+                        </ScrollView>            
                     );
                 }
                 else {
@@ -156,7 +170,7 @@ class SearchComponent extends Component {
 
         
         return(
-            <RenderSearch props={this.state.search}/>
+            <RenderSearch props={this.state.search} backbutton={this.handleBackButtonClick}/>
         )
     }
 

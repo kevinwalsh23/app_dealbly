@@ -10,9 +10,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "/assets/logo_dealbly.png",
+    "icon": "./assets/logo_dealbly.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo_dealbly.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, Button } from 'react-native';
+import { Text, View, FlatList, Button, BackHandler, TouchableOpacity } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchBarInfo} from '../redux/ActionCreators';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import Icons from 'react-native-vector-icons/MaterialIcons';
 
 const mapStateToProps = state => {
     return {
@@ -34,6 +34,9 @@ function RenderBar(props) {
                 flexDirection: 'column',
                 contentContainerStyle:{alignItems: 'stretch'}
               }}>
+                <TouchableOpacity onPress={props.backbutton}>
+                    <Icons name={'arrow-back'} size={30} color='#2e944b' style={{marginLeft: 15, marginTop: 5, marginBottom:0, height: 25}}/>
+                </TouchableOpacity>
 
                 <View style={{height: 200}}>                
                 <Card
@@ -175,10 +178,16 @@ function renderDealItem(item, index) {
 class BarDetail extends Component {
     constructor(props) {
         super(props);
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
     static navigationOptions = {
         title: 'Bar Details'
     };
+    
+    handleBackButtonClick() {
+        this.props.navigation.goBack(null);
+        return true;
+    }
     
     componentDidMount() {
         var restId1 = this.props.navigation.getParam('restId', '');
@@ -191,7 +200,7 @@ class BarDetail extends Component {
         else {
             return(
                 
-                <RenderBar barinfo={this.props.barinfo.barinfo} navigate={this.props.navigation} />
+                <RenderBar barinfo={this.props.barinfo.barinfo} navigate={this.props.navigation} backbutton={this.handleBackButtonClick} />
                 
                 );
         }
