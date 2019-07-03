@@ -130,11 +130,11 @@ class SearchComponent extends Component {
                         <View style={{margin: 0, flex: 1, flexDirection: 'row', justifyContent: 'space-evenly'}}>
                             <View style={{flex: 1, alignItems: 'left', marginTop: 0}}>
                                 <TouchableOpacity onPress={props.backbutton}>
-                                    <Icons name={'arrow-back'} size={30} color='#2e944b' style={{marginLeft: 15, marginTop: 5, marginBottom:0, height: 25}}/>
+                                    <Icons name={'arrow-back'} size={30} color='#2e944b' backgroundColor= "grey" style={{marginLeft: 5, marginTop: 5, marginBottom:0, height: 25}}/>
                                 </TouchableOpacity> 
                             </View>
                             <View style={{flex: 5, marginRight: 0, alignItems: 'baseline'}}>
-                                <Text style={{fontSize: 12, marginLeft: 5, marginTop: 13, fontWeight: 'bold', textAlign: 'left'}}>Search Results for keyword '{x.props.search.query.keyword}' in zip/hood '{x.props.search.query.zipnasty}' </Text>                
+                                <Text style={{fontSize: 14, marginLeft: 5, marginTop: 10, fontWeight: 'bold', textAlign: 'left'}}>Search Results for keyword '{x.props.search.query.keyword}' in zip/hood '{x.props.search.query.zipnasty}' </Text>                
                             </View>
                         </View>                        
                      

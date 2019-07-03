@@ -12,9 +12,9 @@
     "orientation": "portrait",
     "icon": "./assets/logo_dealbly.png",
     "splash": {
-      "image": "./assets/logo_dealbly.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2e944b"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
