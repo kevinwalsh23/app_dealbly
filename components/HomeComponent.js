@@ -162,7 +162,7 @@ class Home extends Component {
                     </View>
                     <View>
                                                 
-                        <Modal animationType = {"none"} transparent = {true}
+                        <Modal animationType = {"slide"} transparent = {true}
                             isVisible = {this.state.showModal}
                             onBackdropPress={() => this.setState({ showModal: false })}
                             hideModalContentWhileAnimating={true}                    
@@ -216,26 +216,33 @@ class Home extends Component {
                         </View>
                     </View>
                     <View>
-                        <Modal animationType = {"slide"} transparent = {false}
-                            visible = {this.state.showModal}                    
-                            onRequestClose = {() => this.toggleModal() } style={{width:50, height: 50}}>
-                        <ScrollView style={{padding: 40, marginTop: 40}}>
-                            <Text style={{textAlign: 'center', fontSize: 24, margin: 15}}>Search for Deals</Text>                        
-                            <Input placeholder='Zipcode or Neighborhood' onChangeText={(text) => this.setState({zipnasty: text})} value={this.state.zipnasty}/>
-                            <Input placeholder='Im Looking For..' onChangeText={(text) => this.setState({keyword: text})} value={this.state.keyword}/>                       
-                            <Button                             
-                                backgroundColor="green"
-                                color="green"
-                                title="Submit"                                 
-                                onPress = {() =>{this.toggleModal(); this.props.fetchSearch(this.state); navigate('SearchComponent', { search: this.state });this.resetForm();}}
-                                />
-                            <Button 
-                                onPress = {() =>{this.toggleModal(); this.resetForm();}}
-                                color="grey"
-                                title="Cancel" 
-                                />
-                        </ScrollView>
-                        </Modal>    
+                        <Modal animationType = {"slide"} transparent = {true}
+                            isVisible = {this.state.showModal}
+                            onBackdropPress={() => this.setState({ showModal: false })}
+                            hideModalContentWhileAnimating={true}                    
+                            onRequestClose = {() => this.toggleModal() } >
+                            <ScrollView style={{padding: 40, margin: 0, flex: 1, marginBottom: "40%", marginTop: "25%", backgroundColor: 'white', width: '100%', height: "50%"}}>
+                                <Text style={{textAlign: 'center', fontSize: 24, margin: 15}}>Search for Deals</Text>                        
+                                <Input placeholder='Zipcode or Neighborhood' onChangeText={(text) => this.setState({zipnasty: text})} value={this.state.zipnasty}/>
+                                <Input placeholder='Im Looking For..' onChangeText={(text) => this.setState({keyword: text})} value={this.state.keyword}/>                       
+                                <View style={{marginTop: 10, backgroundColor: "green"}}>
+                                <Button                             
+                                    backgroundColor="green"
+                                    color="white"
+                                    title="Submit"                                 
+                                    onPress = {() =>{this.toggleModal(); this.props.fetchSearch(this.state); navigate('SearchComponent', { search: this.state });this.resetForm();}}
+                                    />
+                                </View>
+                                <View style={{marginTop: 10, backgroundColor: "grey"}}>
+                                <Button 
+                                    onPress = {() =>{this.toggleModal(); this.resetForm();}}
+                                    color="white"
+                                    title="Cancel" 
+                                    />
+                                </View>
+                                    
+                            </ScrollView>
+                        </Modal> 
                     </View>
                 </ScrollView>
             );
@@ -261,25 +268,32 @@ class Home extends Component {
                     <Text style={{fontSize: 14, marginLeft: 5, marginTop: 3, textAlign: 'center'}}>There are no upcoming deals for the rest of the day!</Text>
                     </View>
                     <View>
-                        <Modal animationType = {"slide"} transparent = {false}
-                            visible = {this.state.showModal}                    
-                            onRequestClose = {() => this.toggleModal() } style={{width:50, height: 50}}>
-                        <ScrollView style={{padding: 40, marginTop: 40}}>
-                            <Text style={{textAlign: 'center', fontSize: 24, margin: 15}}>Search for Deals</Text>                        
-                            <Input placeholder='Zipcode or Neighborhood' onChangeText={(text) => this.setState({zipnasty: text})} value={this.state.zipnasty}/>
-                            <Input placeholder='Im Looking For..' onChangeText={(text) => this.setState({keyword: text})} value={this.state.keyword}/>                       
-                            <Button                             
-                                backgroundColor="green"
-                                color="green"
-                                title="Submit"                                 
-                                onPress = {() =>{this.toggleModal(); this.props.fetchSearch(this.state); navigate('SearchComponent', { search: this.state });this.resetForm();}}
-                                />
-                            <Button 
-                                onPress = {() =>{this.toggleModal(); this.resetForm();}}
-                                color="grey"
-                                title="Cancel" 
-                                />
-                        </ScrollView>
+                        <Modal animationType = {"slide"} transparent = {true}
+                            isVisible = {this.state.showModal}
+                            onBackdropPress={() => this.setState({ showModal: false })}
+                            hideModalContentWhileAnimating={true}                    
+                            onRequestClose = {() => this.toggleModal() } >
+                            <ScrollView style={{padding: 40, margin: 0, flex: 1, marginBottom: "40%", marginTop: "25%", backgroundColor: 'white', width: '100%', height: "50%"}}>
+                                <Text style={{textAlign: 'center', fontSize: 24, margin: 15}}>Search for Deals</Text>                        
+                                <Input placeholder='Zipcode or Neighborhood' onChangeText={(text) => this.setState({zipnasty: text})} value={this.state.zipnasty}/>
+                                <Input placeholder='Im Looking For..' onChangeText={(text) => this.setState({keyword: text})} value={this.state.keyword}/>                       
+                                <View style={{marginTop: 10, backgroundColor: "green"}}>
+                                <Button                             
+                                    backgroundColor="green"
+                                    color="white"
+                                    title="Submit"                                 
+                                    onPress = {() =>{this.toggleModal(); this.props.fetchSearch(this.state); navigate('SearchComponent', { search: this.state });this.resetForm();}}
+                                    />
+                                </View>
+                                <View style={{marginTop: 10, backgroundColor: "grey"}}>
+                                <Button 
+                                    onPress = {() =>{this.toggleModal(); this.resetForm();}}
+                                    color="white"
+                                    title="Cancel" 
+                                    />
+                                </View>
+                                    
+                            </ScrollView>
                         </Modal>    
                     </View>
                 </ScrollView>
@@ -301,25 +315,32 @@ class Home extends Component {
                         <Text style={{fontSize: 14, marginLeft: 5, marginTop: 3, textAlign: 'center'}}>There are no upcoming deals for the rest of the day!</Text>
                     </View>
                     <View>
-                        <Modal animationType = {"slide"} transparent = {false}
-                            visible = {this.state.showModal}                    
-                            onRequestClose = {() => this.toggleModal() } style={{width:50, height: 50}}>
-                        <ScrollView style={{padding: 40, marginTop: 40}}>
-                            <Text style={{textAlign: 'center', fontSize: 24, margin: 15}}>Search for Deals</Text>                        
-                            <Input placeholder='Zipcode or Neighborhood' onChangeText={(text) => this.setState({zipnasty: text})} value={this.state.zipnasty}/>
-                            <Input placeholder='Im Looking For..' onChangeText={(text) => this.setState({keyword: text})} value={this.state.keyword}/>                       
-                            <Button                             
-                                backgroundColor="green"
-                                color="green"
-                                title="Submit"                                 
-                                onPress = {() =>{this.toggleModal(); this.props.fetchSearch(this.state); navigate('SearchComponent', { search: this.state });this.resetForm();}}
-                                />
-                            <Button 
-                                onPress = {() =>{this.toggleModal(); this.resetForm();}}
-                                color="grey"
-                                title="Cancel" 
-                                />
-                        </ScrollView>
+                        <Modal animationType = {"slide"} transparent = {true}
+                            isVisible = {this.state.showModal}
+                            onBackdropPress={() => this.setState({ showModal: false })}
+                            hideModalContentWhileAnimating={true}                    
+                            onRequestClose = {() => this.toggleModal() } >
+                            <ScrollView style={{padding: 40, margin: 0, flex: 1, marginBottom: "40%", marginTop: "25%", backgroundColor: 'white', width: '100%', height: "50%"}}>
+                                <Text style={{textAlign: 'center', fontSize: 24, margin: 15}}>Search for Deals</Text>                        
+                                <Input placeholder='Zipcode or Neighborhood' onChangeText={(text) => this.setState({zipnasty: text})} value={this.state.zipnasty}/>
+                                <Input placeholder='Im Looking For..' onChangeText={(text) => this.setState({keyword: text})} value={this.state.keyword}/>                       
+                                <View style={{marginTop: 10, backgroundColor: "green"}}>
+                                <Button                             
+                                    backgroundColor="green"
+                                    color="white"
+                                    title="Submit"                                 
+                                    onPress = {() =>{this.toggleModal(); this.props.fetchSearch(this.state); navigate('SearchComponent', { search: this.state });this.resetForm();}}
+                                    />
+                                </View>
+                                <View style={{marginTop: 10, backgroundColor: "grey"}}>
+                                <Button 
+                                    onPress = {() =>{this.toggleModal(); this.resetForm();}}
+                                    color="white"
+                                    title="Cancel" 
+                                    />
+                                </View>
+                                    
+                            </ScrollView>
                         </Modal>    
                     </View>
                     
