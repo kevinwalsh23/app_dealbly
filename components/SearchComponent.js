@@ -86,38 +86,117 @@ class SearchComponent extends Component {
         
         
         const {navigate} = this.props.navigation;
-        
+        var timenow = (((Date.now()/1000) % 86400) / 60) - 240
         const renderDealItem = ({item, index}) => {
+            var timeleft = Math.trunc(item.mininterval - timenow);
             var numnum = index%11;
-            return (  
-                <View >
-                    <Divider style={{marginTop: 5}}/>
-                     
-                    <View style={{margin: 0, flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'stretch'}}>
-                        <View style={{marginLeft: 5, marginTop: 5, backgroundColor: 'white', flex: 1}}>                        
-                            <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{index + 1}.</Text>
-                        </View>
-                        <RenderImage numnum={numnum}/>                        
-                        <View style={{backgroundColor: 'white', flex:8, fontSize: 19}}>
-                            <View style={{flex: 1, flexDirection: 'column'}}>
-                                <TouchableOpacity onPress={() => navigate('BarDetail', { restId: item.bar_id })}>                                                
-                                    <Text style={{fontSize: 16, fontWeight: 'bold', color: 'blue'}}>{item.bar_name}</Text>
-                                </TouchableOpacity>    
-                                <Text style={{fontSize: 12}}>{item.address}</Text>
-                                <Text style={{fontSize: 12}}>{item.city}, {item.state} {item.zip}</Text>
-                                <Text style={{fontSize: 12}}>{item.phone}</Text>
+            if (timeleft < 60 && timeleft > 0) {
+                return (  
+                    <View >
+                        <Divider style={{marginTop: 5}}/>
+                        
+                        <View style={{margin: 0, flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'stretch'}}>
+                            <View style={{marginLeft: 5, marginTop: 5, backgroundColor: 'white', flex: 1}}>                        
+                                <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{index + 1}.</Text>
                             </View>
+                            <RenderImage numnum={numnum}/>                     
+                            <View style={{backgroundColor: 'white', flex:8, fontSize: 19}}>
+                                <View style={{flex: 1, flexDirection: 'column'}}>
+                                    <TouchableOpacity onPress={() => navigate('BarDetail', { restId: item.bar_id })}>                                                
+                                        <Text style={{fontSize: 16, fontWeight: 'bold', color: 'blue'}}>{item.bar_name}</Text>
+                                    </TouchableOpacity>    
+                                    <Text style={{fontSize: 12}}>{item.address}</Text>
+                                    <Text style={{fontSize: 12}}>{item.city}, {item.state} {item.zip}</Text>
+                                    <Text style={{fontSize: 12}}>{item.phone}</Text>
+                                </View>
+                            </View>
+                            <View style={{backgroundColor: 'white', flex: 1.5, marginEnd: 5, marginTop: 3}}>                        
+                                <RenderRating rating={item.rating}/>
+                            </View>
+            
                         </View>
-                        <View style={{backgroundColor: 'white', flex: 1.5, marginEnd: 5, marginTop: 3}}>                        
-                            <RenderRating rating={item.rating}/>
+                        <View style={{marginTop: 5, flex: 1, backgroundColor: '#F0F0F0', flexDirection: 'row', alignItems: 'stretch'}}>                        
+                            <Text style={{fontSize: 12, fontWeight: 'bold', marginLeft: 30, marginTop: 3}}>{item.time_start} to {item.time_end} </Text>
+                            <Text style={{fontSize: 12, fontWeight: 'bold', marginTop: 3, color: 'red'}}> Ending in {timeleft} minutes!</Text>
+                        </View> 
+                        
+                        <View style={{marginTop: 0, flex: 1, backgroundColor: '#F0F0F0', flexDirection: 'row', alignItems: 'stretch'}}>                        
+                            <Text style={{fontSize: 12, marginLeft: 30, marginTop: 3, marginRight: 15, marginBottom: 10}}>{item.deal}</Text>
+                        </View> 
+                    </View>            
+                );
+            }
+            else if (timeleft > 60 && timeleft < 120) {
+                return (  
+                    <View >
+                        <Divider style={{marginTop: 5}}/>
+                        
+                        <View style={{margin: 0, flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'stretch'}}>
+                            <View style={{marginLeft: 5, marginTop: 5, backgroundColor: 'white', flex: 1}}>                        
+                                <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{index + 1}.</Text>
+                            </View>
+                            <RenderImage numnum={numnum}/>                     
+                            <View style={{backgroundColor: 'white', flex:8, fontSize: 19}}>
+                                <View style={{flex: 1, flexDirection: 'column'}}>
+                                    <TouchableOpacity onPress={() => navigate('BarDetail', { restId: item.bar_id })}>                                                
+                                        <Text style={{fontSize: 16, fontWeight: 'bold', color: 'blue'}}>{item.bar_name}</Text>
+                                    </TouchableOpacity>    
+                                    <Text style={{fontSize: 12}}>{item.address}</Text>
+                                    <Text style={{fontSize: 12}}>{item.city}, {item.state} {item.zip}</Text>
+                                    <Text style={{fontSize: 12}}>{item.phone}</Text>
+                                </View>
+                            </View>
+                            <View style={{backgroundColor: 'white', flex: 1.5, marginEnd: 5, marginTop: 3}}>                        
+                                <RenderRating rating={item.rating}/>
+                            </View>
+            
                         </View>
-        
-                    </View>
-                    <View style={{marginTop: 5, flex: 1, backgroundColor: '#F0F0F0', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'stretch'}}>
-                        <Text style={{fontSize: 12, margin: 15}}>{item.deal}</Text>
-                    </View> 
-                </View>            
-            );
+                        <View style={{marginTop: 5, flex: 1, backgroundColor: '#F0F0F0', flexDirection: 'row', alignItems: 'stretch'}}>                        
+                            <Text style={{fontSize: 12, fontWeight: 'bold', marginLeft: 30, marginTop: 3}}>{item.time_start} to {item.time_end} </Text>
+                            <Text style={{fontSize: 12, fontWeight: 'bold', marginTop: 3, color: 'orange'}}> Under two hours left</Text>
+                        </View> 
+                        
+                        <View style={{marginTop: 0, flex: 1, backgroundColor: '#F0F0F0', flexDirection: 'row', alignItems: 'stretch'}}>                        
+                            <Text style={{fontSize: 12, marginLeft: 30, marginTop: 3, marginRight: 15, marginBottom: 10}}>{item.deal}</Text>
+                        </View> 
+                    </View>            
+                );
+            }
+            else {
+                return (  
+                    <View >
+                        <Divider style={{marginTop: 5}}/>
+                        
+                        <View style={{margin: 0, flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'stretch'}}>
+                            <View style={{marginLeft: 5, marginTop: 5, backgroundColor: 'white', flex: 1}}>                        
+                                <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{index + 1}.</Text>
+                            </View>
+                            <RenderImage numnum={numnum}/>                     
+                            <View style={{backgroundColor: 'white', flex:8, fontSize: 19}}>
+                                <View style={{flex: 1, flexDirection: 'column'}}>
+                                    <TouchableOpacity onPress={() => navigate('BarDetail', { restId: item.bar_id })}>                                                
+                                        <Text style={{fontSize: 16, fontWeight: 'bold', color: 'blue'}}>{item.bar_name}</Text>
+                                    </TouchableOpacity>    
+                                    <Text style={{fontSize: 12}}>{item.address}</Text>
+                                    <Text style={{fontSize: 12}}>{item.city}, {item.state} {item.zip}</Text>
+                                    <Text style={{fontSize: 12}}>{item.phone}</Text>
+                                </View>
+                            </View>
+                            <View style={{backgroundColor: 'white', flex: 1.5, marginEnd: 5, marginTop: 3}}>                        
+                                <RenderRating rating={item.rating}/>
+                            </View>
+            
+                        </View>
+                        <View style={{marginTop: 5, flex: 1, backgroundColor: '#F0F0F0', flexDirection: 'row', alignItems: 'stretch'}}>                        
+                            <Text style={{fontSize: 12, fontWeight: 'bold', marginLeft: 30, marginTop: 3}}>{item.time_start} to {item.time_end}</Text>
+                        </View> 
+                        
+                        <View style={{marginTop: 0, flex: 1, backgroundColor: '#F0F0F0', flexDirection: 'row', alignItems: 'stretch'}}>                        
+                            <Text style={{fontSize: 12, marginLeft: 30, marginTop: 3, marginRight: 15, marginBottom: 10}}>{item.deal}</Text>
+                        </View> 
+                    </View>            
+                );
+            };
         };
 
         const RenderSearch = (props) => {
