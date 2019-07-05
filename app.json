@@ -8,9 +8,9 @@
       "ios",
       "android"
     ],
-    "version": "1.0.2",
+    "version": "1.0.4",
     "orientation": "portrait",
-    "icon": "./assets/logo_dealbly.png",
+    "icon": "./assets/Drawing.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
