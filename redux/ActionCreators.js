@@ -118,7 +118,7 @@ export const fetchSearch = (search) => (dispatch) => {
     
 
     dispatch(searchLoading());    
-    return fetch(dealbly_api + 'search?' + 'start_time=' + search.start_time + '&end_time=' + search.end_time + '&day=' + search.day + '&keyword=' + search.keyword + '&zipnasty=' + search.zipnasty)
+    return fetch(dealbly_api + 'search?' + 'start_time=' + search.start_time + '&end_time=' + search.end_time + '&day=' + search.day + '&keyword=' + search.keyword.trim() + '&zipnasty=' + search.zipnasty.trim())
     .then(response => {
         if (response.ok) {            
             return response;
